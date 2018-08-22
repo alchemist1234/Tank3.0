@@ -1,0 +1,217 @@
+/**
+ * Created by ZhanChen on 2017/01/25.
+ */
+var  UnitType={
+    obstacle:0,
+    tank:1,
+    item:2,
+};
+//定义方向
+var Direction={
+    up:0,
+    right:1,
+    down:2,
+    left:3,
+};
+//定义障碍物类型
+var ObstacleType={
+    empty:0,
+    brick:1,
+    steel:2,
+    water:3,
+    grass:4,
+    ice:5,
+};
+//如果坦克pass值比障碍物pass值高，可以通过，反之不能通过
+var ObstaclePass={
+    empty:0,
+    brick:100,
+    steel:100,
+    water:50,
+    grass:0,
+    ice:0,
+};
+//如果障碍物强度为0，子弹直接穿过；为正数，子弹强度低于该值，打不动，高于则可摧毁障碍物；为负值，子弹强度低于该值的绝对值，穿过，高于则摧毁
+var ObstacleHardness={
+    empty:0,
+    brick:5,
+    steel:70,
+    water:0,
+    grass:-110,
+    ice:0,
+};
+//随机地图地形概率
+var MapChance={
+    empty:0.55,
+    brick:0.25,
+    steel:0.05,
+    water:0.05,
+    grass:0.1,
+    ice:0,
+};
+//定义物体类型
+var ItemType={
+    life:0,
+    load:1,
+    bomb:2,
+    speed:3,
+    bulletSpeed:4,
+    upgrade:5,
+    shield:6,
+    heal:7,
+    freeze:8,
+    loadRate:9,
+    spade:10,
+};
+//定义坦克类型
+var TankType={
+    heroA:0,
+    heroB:1,
+    enemy:10,
+    enemyA:11,
+    enemyB:12,
+    enemyC:13,
+};
+//定义子弹类型
+var BulletType={
+    normal:0,
+};
+//定义颜色
+var Color={
+    homePageTitle:"#FF9900",
+    homePageSub:"#FFFFFF",
+    stageChangeBackground:"#D3D3D3",
+    stageChangeText:"#000000",
+    //color1:主色调,color2:副色调
+    //color3:无敌倒计时颜色
+    heroA_Color1:"#FFB300",
+    heroA_Color2:"#FFD54F",
+    heroA_Color3:"#FFFFFF",
+    heroB_Color1:"#64DD17",
+    heroB_Color2:"#76FF03",
+    heroB_Color3:"#FFFFFF",
+    enemyA_Color1:"#D500F9",
+    enemyA_Color2:"#EA80FC",
+    enemyA_Color3:"#FFFFFF",
+    enemyB_Color1:"#F50057",
+    enemyB_Color2:"#FF4081",
+    enemyB_Color3:"#FFFFFF",
+    enemyC_Color1:"#757575",
+    enemyC_Color2:"#BDBDBD",
+    enemyC_Color3:"#FFFFFF",
+    freezeTime:"#42A5F5",
+    bullet:"#FFFFFF",
+    bulletLoaded:"#FFFFFF",
+    fullLife:"#00FF00",
+    midLife:"#FFFF00",
+    lowLife:"#FF0000",
+    g_lifeBorder:"#000000",
+    reloadBorder:"#000000",
+    reloadBar:"#00ffff",
+    brink1:"#7F7F7F",
+    brink2:"#A63F03",
+    brink3:"#C07000",
+    steel1:"#BCBCBC",
+    steel2:"#7F7F7F",
+    steel3:"#EEEEEE",
+    water1:"#4040FF",
+    water2:"#86CBF4",
+    grass1:"#97E700",
+    grass2:"#42760A",
+    ice:"#FFFFFF",
+    item:"#FFFFFF",
+    base:"#FFFFFF",
+    failText:"##FF0000",
+    text:"##FFFFFF",
+};
+//定义游戏参数
+var Config={
+    //敌方坦克初始数量（总数量-3）
+    enemyNum:12,
+    enemiesOnScreen:5,
+    //敌方坦克转向概率
+    enemyChangeDirection:0.06,
+    //敌方坦克发射子弹概率
+    enemyShoot:0.04,
+    //各种敌方坦克出现概率
+    enemyAChance:0.7,
+    enemyBChance:0.2,
+    enemyCChance:0.1,
+    //玩家1初始参数
+    heroALives:3,//命
+    heroASpeed:3,//移动速度(像素)
+    heroAMaxHP:100,//最大生命值
+    heroABulletType:BulletType.normal,
+    heroAMaxLoad:3,//载弹量
+    heroALoadRate:3,//装载速度(像素)
+    heroABulletSpeed:6,//子弹速度(像素)
+    heroADamage:25,//子弹伤害
+    heroAGodTime:2,//出生时的无敌时间(s)
+    //玩家2初始参数
+    heroBLives:3,
+    heroBSpeed:3,
+    heroBMaxHP:100,
+    heroBBulletType:BulletType.normal,
+    heroBMaxLoad:3,
+    heroBLoadRate:3,
+    heroBBulletSpeed:6,
+    heroBDamage:25,
+    heroBGodTime:2,
+    //敌方坦克A初始参数
+    enemyASpeed:3,
+    enemyAMaxHP:100,
+    enemyABulletType:BulletType.normal,
+    enemyAMaxLoad:3,
+    enemyABulletSpeed:6,
+    enemyADamage:25,
+    enemyAGodTime:2,
+    enemyALoadRate:3,
+    enemyAReward:10,
+    //敌方坦克B初始参数
+    enemyBSpeed:4,
+    enemyBMaxHP:75,
+    enemyBBulletType:BulletType.normal,
+    enemyBMaxLoad:4,
+    enemyBBulletSpeed:6,
+    enemyBDamage:20,
+    enemyBGodTime:2,
+    enemyBLoadRate:4,
+    enemyBReward:15,
+    //敌方坦克C初始参数
+    enemyCSpeed:1,
+    enemyCMaxHP:150,
+    enemyCBulletType:BulletType.normal,
+    enemyCMaxLoad:1,
+    enemyCBulletSpeed:5,
+    enemyCDamage:50,
+    enemyCGodTime:2,
+    enemyCLoadRate:3,
+    enemyCReward:20,
+    //物品参数限制
+    speedLimit:6,//移动速度上限
+    loadLimit:6,//载弹量上限
+    loadRateLimit:6,//装载速度上限
+    bulletSpeedLimit:12,//子弹速度上限
+    damageLimit:100,//子弹伤害上限
+    damageIncrement:20,//子弹伤害增量
+    shieldTime:15,//保护伞时间(s)
+    //游戏参数
+    stageNum:50,//总关卡数
+    itemInterval:20,//物品出现间隔(s)
+    itemDestroy:12,//物品存在时间(s)
+    findItemScore:50,//每得多少分奖励一个物品
+    heroFreezeTime:5,//我方被冻结时长(s)
+    enemyFreezeTime:15,//敌方被冻结时长(s)
+    spadeTime:15,//基地变成钢铁时间(s)
+    //stageInterval:3,//关卡之间间隔(s)
+    stageAnimationSpeed:5,//关卡切换时动画速度(像素)
+    gameOverTextEndY:388,
+    timer_flasherval:25,//屏幕刷新间隔(ms)
+    moveInterval:25,//每次移动间隔(ms)
+    bornInterval:50,//出生动画时间间隔(ms)
+    reloadInterval:25,//装载时间间隔(ms)
+    bulletMoveInterval:25,//子弹移动间隔(ms)
+    endTextInterval:25,//结束时文字移动时间间隔(ms)
+    textInterval:25,//拾取物品文字移动间隔(ms)
+    textSpeed:1,//拾取物品文字移动速度(像素)
+};

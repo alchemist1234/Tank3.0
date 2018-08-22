@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tank3.0-新春版</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <div id="gamebox">
+        <canvas id="field" width="750" height="750" style="background: black">
+            您的浏览器不支持HTML5，请用支持HTML5的浏览（Chrome,Edge,Firefox,Opera,IE9及以上,Safari）器打开本网页
+        </canvas>
+        <div id="datas">
+            <input type="checkbox" id="sound" name="sound" checked="checked">开启音效
+            <p id="CurrentStage">当前关卡：</p>
+            <p id="EnemyCount">敌方坦克数量：</p>
+            <table id="HeroData">
+                <tr>
+                    <td></td>
+                    <td id="HeroA_Name" class="HeroAData">玩家1</td>
+                    <td id="HeroB_Name" class="HeroBData">玩家2</td>
+                </tr>
+                <tr>
+                    <td>子弹数量</td>
+                    <td id="HeroA_Load" class="HeroAData"></td>
+                    <td id="HeroB_Load" class="HeroBData"></td>
+                </tr>
+                <tr>
+                    <td>子弹速度</td>
+                    <td id="HeroA_BulletSpeed" class="HeroAData"></td>
+                    <td id="HeroB_BulletSpeed" class="HeroBData"></td>
+                </tr>
+                <tr>
+                    <td>子弹伤害</td>
+                    <td id="HeroA_Damage" class="HeroAData"></td>
+                    <td id="HeroB_Damage" class="HeroBData"></td>
+                </tr>
+                <tr>
+                    <td>装载速度</td>
+                    <td id="HeroA_LoadRate" class="HeroAData"></td>
+                    <td id="HeroB_LoadRate" class="HeroBData"></td>
+                </tr>
+                <tr>
+                    <td>移动速度</td>
+                    <td id="HeroA_Speed" class="HeroAData"></td>
+                    <td id="HeroB_Speed" class="HeroBData"></td>
+                </tr>
+                <tr>
+                    <td>剩余生命</td>
+                    <td id="HeroA_Life" class="HeroAData"></td>
+                    <td id="HeroB_Life" class="HeroBData"></td>
+                </tr>
+                <tr>
+                    <td>得分</td>
+                    <td id="HeroA_Score" class="HeroAData"></td>
+                    <td id="HeroB_Score" class="HeroBData"></td>
+                </tr>
+            </table>
+            <p>确认：Enter，暂停：P，选择：方向键</p>
+            <p>玩家1：WASD控制方向，J发射子弹</p>
+            <p>玩家2：方向键控制方向，1（小键盘）发射子弹</p>
+            <br>
+            <hr>
+            <ul id="abstr">
+                <li>3种敌方坦克概率随机出现</li>
+                <li>11种物品，双方均可拾取</li>
+                <li>无限关卡，地形随机</li>
+            </ul>
+        </div>
+    </div>
+    <audio id="au_stageStart" src="src/stageStart.mp3"></audio>
+    <audio id="au_heroAShoot" src="src/shoot.mp3"></audio>
+    <audio id="au_heroBShoot" src="src/shoot.mp3"></audio>
+    <audio id="au_shootIndestructible" src="src/shootIndestructible.mp3"></audio>
+    <audio id="au_boom" src="src/boom.mp3"></audio>
+    <audio id="au_findItem" src="src/findItem.mp3"></audio>
+    <audio id="au_getItem" src="src/getItem.mp3"></audio>
+    <audio id="au_lifeUp" src="src/lifeUp.mp3"></audio>
+    <audio id="au_baseDestroy" src="src/baseDestroy.mp3"></audio>
+    <audio id="au_pause" src="src/pause.mp3"></audio>
+    <audio id="au_enemyMove" src="src/enemyMove.mp3"></audio>
+    <audio id="au_heroMove" src="src/heroMove.mp3"></audio>
+</body>
+<script src="js/data.js" type="text/javascript"></script>
+<!--<script src="js/maps.js" type="text/javascript"></script>-->
+<script src="js/game.js" type="text/javascript"></script>
+</html>

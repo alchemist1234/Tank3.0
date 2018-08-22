@@ -1,0 +1,45 @@
+body{
+    margin: 0;
+    padding: 0;
+    font: 1em SimSun;
+}
+#field{
+    display: block;
+    float: left;
+}
+#datas{
+    float: left;
+    display: inline-block;
+    background: ghostwhite;
+    height: 730px;
+    width: 200px;
+    padding: 10px 10px;
+}
+#gamebox{
+    margin: 40px auto;
+    height: 750px;
+    width: 1000px;
+}
+#HeroData,td{
+    border-collapse: collapse;
+    border:1px black solid;
+    text-align: center;
+}
+th,td{
+    padding: 4px 6px;
+}
+.HeroAData{
+    color: #FF9900;
+}
+.HeroBData{
+    color: #00CC00;
+}
+.HeroAData,.HeroBData{
+    font-weight: 700;
+}
+#abstr{
+    padding-left:12px;
+}
+#abstr li{
+    height: 28px;
+}
